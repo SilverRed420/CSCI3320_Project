@@ -1,0 +1,10 @@
+Colombian,25
+Espresso,40
+French Roast,15
+Arabica,30
+Decaf,10
+Ethiopian,22
+Sumatra,18
+Guatemalan,12
+House Blend,35
+Dark Roast,20
