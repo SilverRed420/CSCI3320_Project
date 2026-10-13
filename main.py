@@ -50,6 +50,42 @@ def modify_coffee():
         if not found:
             print(f"Coffee '{coffee_name}' not found.")
 
+def delete_coffee():
+    # Show the current inventory so the user can pick a record
+    display_coffees()
+    coffee_name = input("Enter the name of the coffee to delete: ")
+    # Read the existing coffees from the file
+    with open(FILE_NAME, "r") as file:
+        coffees = file.readlines()
+    found = False
+    # Rewrite the file, skipping the record that matches the name
+    with open(FILE_NAME, "w") as file:
+        for coffee in coffees:
+            name, weight = coffee.strip().split(",")
+            if name == coffee_name:
+                found = True
+            else:
+                file.write(coffee)
+    if found:
+        print(f"Coffee '{coffee_name}' deleted successfully.")
+    else:
+        print(f"Coffee '{coffee_name}' not found.")
+
+def search_coffee():
+    search_name = input("Enter the name of the coffee to search for: ")
+    with open(FILE_NAME, "r") as file:
+        coffees = file.readlines()
+    found = False
+    for coffee in coffees:
+        name, weight = coffee.strip().split(",")
+        # Case-insensitive match on the description
+        if name.lower() == search_name.lower():
+            print(f"Found - Name: {name}, Weight: {weight} lbs")
+            found = True
+    if not found:
+        print(f"Coffee '{search_name}' not found.")
+
+
 def display_options():
     print("\nCoffee Inventory Management System\n")
     print("Choose one of the following options 1-6:")
@@ -80,11 +116,9 @@ def main():
         elif choice == '3':
             modify_coffee()
         elif choice == '4':
-            print("Delete a coffee functionality goes here.")
-            # Add code to delete a coffee
+            delete_coffee()
         elif choice == '5':
-            print("Search for a coffee functionality goes here.")
-            # Add code to search for a coffee
+            search_coffee()
         elif choice == '6':
             print("Exiting the program.")
             break
